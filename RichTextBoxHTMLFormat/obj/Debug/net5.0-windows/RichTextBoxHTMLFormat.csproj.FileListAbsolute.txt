@@ -33,4 +33,3 @@ D:\GIT\RichTextBoxFormatting\RichTextBoxHTMLFormat\obj\Debug\net5.0-windows\Rich
 D:\GIT\RichTextBoxFormatting\RichTextBoxHTMLFormat\obj\Debug\net5.0-windows\ref\RichTextBoxHTMLFormat.dll
 D:\GIT\RichTextBoxFormatting\RichTextBoxHTMLFormat\obj\Debug\net5.0-windows\RichTextBoxHTMLFormat.pdb
 D:\GIT\RichTextBoxFormatting\RichTextBoxHTMLFormat\obj\Debug\net5.0-windows\RichTextBoxHTMLFormat.genruntimeconfig.cache
-D:\GIT\RichTextBoxFormatting\RichTextBoxHTMLFormat\obj\Debug\net5.0-windows\RichTextBoxHTMLFormat.csproj.AssemblyReference.cache

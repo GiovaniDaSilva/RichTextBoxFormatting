@@ -16,10 +16,10 @@ namespace RichTextBoxHTMLFormat
      * Convertida por Giovani da Silva (@GiovaniDaSilva)
      */
 
-    public class MotorRichFmt
+    class MotorRichFmt
     {
 
-        private RichTextBox Rich;
+        private RichTextBox richTB;
         
         public StringBuilder PureText = new StringBuilder();
        
@@ -48,35 +48,38 @@ namespace RichTextBoxHTMLFormat
         private static Token LT_Backgound = new Token("BC", true);
 
 
-        public Token[] Tokens { get; set; } = { LT_Link, LT_Bold, LT_Italic, LT_Underline, LT_Color, LT_Size, LT_Name, LT_Backgound };
+        public Token[] Tokens { get; } = { LT_Link, LT_Bold, LT_Italic, LT_Underline, LT_Color, LT_Size, LT_Name, LT_Backgound };
 
         public MotorRichFmt(RichTextBox Rich)
         {
-            this.Rich = Rich;
+            this.richTB = Rich;
         }
 
-        private  FontStyle GetStyleByValues(bool bBold, bool bItalic, bool bUnderline)
-        {
+        private FontStyle GetStyleByValues(bool bBold, bool bItalic, bool bUnderline)
+        {          
             FontStyle fs = 0;
+
             if (bBold)
                 fs = fs | FontStyle.Bold;
             if (bItalic)
                 fs = fs | FontStyle.Italic;
             if (bUnderline)
                 fs = fs | FontStyle.Underline;
+         
             return fs;
         }
 
         private void InitListas()
         {
-            Font f = Rich.Font;
-            LT_Bold.Lst.Add(f.Bold);
-            LT_Italic.Lst.Add(f.Italic);
-            LT_Underline.Lst.Add(f.Underline);
-            LT_Color.Lst.Add(Rich.ForeColor);
-            LT_Size.Lst.Add(f.Size);
-            LT_Name.Lst.Add(f.Name);
-            LT_Backgound.Lst.Add(Rich.BackColor);
+            Font fonte = richTB.Font;
+            LT_Bold.lst.Add(fonte.Bold);
+            LT_Italic.lst.Add(fonte.Italic);
+            LT_Underline.lst.Add(fonte.Underline);
+            LT_Color.lst.Add(richTB.ForeColor);
+            LT_Size.lst.Add(fonte.Size);
+            LT_Name.lst.Add(fonte.Name);
+            LT_Backgound.lst.Add(richTB.BackColor);
+            LT_Link.lst.Add(null);
         }
 
         private void VerTag(string tag)
@@ -87,6 +90,7 @@ namespace RichTextBoxHTMLFormat
                 cmd = cmd.Remove(0, 1);
             int x = cmd.IndexOf(":") + 1;
             string par = string.Empty;
+            
             if (x > 0) // Tag tem parâmetro
             {
                 par = Strings.Mid(cmd, x + 1);
@@ -95,60 +99,58 @@ namespace RichTextBoxHTMLFormat
 
             cmd = cmd.ToUpper();
             var Tk = (from _tk in Tokens
-                      where (_tk.Tag ?? "") == (cmd ?? "")
+                      where _tk.tag.Equals(cmd)
                       select _tk).FirstOrDefault();
-            if (Tk is null)
-            {
-                throw new Exception("Token inválido");
-            }
+            
+            if (Tk is null)            
+                throw new Exception("Token inválido");            
 
             if (Final)
             {
                 int ult = 1;
                 if (ReferenceEquals(Tk, LT_Link))
                     ult = 0;
-                if (Tk.Lst.Count == ult)
+                if (Tk.lst.Count == ult)
                     throw new Exception("Fechamento excedido");
                 Tk.DelLast();
             }
             else
             {
-                if (Tk.ParRequired & (par ?? "") == (string.Empty ?? ""))
-                {
-                    throw new Exception("Parâmetro requerido");
-                }
+                if (Tk.parRequired & String.IsNullOrEmpty(par))                
+                    throw new Exception("Parâmetro requerido");                
 
                 Tk.AddMethod(par);
             }
 
             if (ReferenceEquals(Tk, LT_Link))
                 return;
-            Rich.SelectionFont = new Font(Conversions.ToString(LT_Name.Prop),
+            richTB.SelectionFont = new Font(Conversions.ToString(LT_Name.Prop),
                                           Conversions.ToSingle(LT_Size.Prop), 
                                           GetStyleByValues(Conversions.ToBoolean(LT_Bold.Prop), 
                                                            Conversions.ToBoolean(LT_Italic.Prop), 
                                                            Conversions.ToBoolean(LT_Underline.Prop)));
-            Rich.SelectionColor = (Color)LT_Color.Prop;
-            Rich.SelectionBackColor = (Color)LT_Backgound.Prop;          
+            richTB.SelectionColor = (Color)LT_Color.Prop;
+            richTB.SelectionBackColor = (Color)LT_Backgound.Prop;          
         }
 
   
 
-        public void DoFmt(string Text)
+        public void DoFmt(string text)
         {
             InitListas();
-            while ((Text ?? "") != (string.Empty ?? ""))
+            while (!String.IsNullOrEmpty(text))
             {
                 string a;
                 int x;
-                if (Conversions.ToString(Text[0]) == "<")
+                if (Conversions.ToString(text[0]) == "<")
                 {
                     // Tag
-                    x = Text.IndexOf(">") + 1;
+                    x = text.IndexOf(">") + 1;
                     if (x == 0)
-                        throw new Exception($"Finalizador da tag '{Text}' não encontrado");
-                    a = Strings.Mid(Text, 1, x);
-                    Text = Text.Remove(0, x);
+                        throw new Exception($"Finalizador da tag '{text}' não encontrado");
+                    a = Strings.Mid(text, 1, x);
+                    text = text.Remove(0, x);
+                    
                     try
                     {
                         VerTag(a);
@@ -161,111 +163,79 @@ namespace RichTextBoxHTMLFormat
                 else
                 {
                     // Texto
-                    x = Text.IndexOf("<") + 1; // Localizar próxima tag
+                    x = text.IndexOf("<") + 1; // Localizar próxima tag
                     if (x == 0)
-                        x = Text.Length + 1;
-                    a = Strings.Mid(Text, 1, x - 1);
-                    Text = Text.Remove(0, x - 1);
+                        x = text.Length + 1;
+                    a = Strings.Mid(text, 1, x - 1);
+                    text = text.Remove(0, x - 1);
                     a = a.Replace("&lt;", "<");
                     a = a.Replace("&gt;", ">");
+
+                    if (!String.IsNullOrEmpty((String) LT_Link.Prop))                    
+                       addLink(a);                    
                     
-
-
-
-                    LinkLabel link = new LinkLabel();
-                    link.Text = "http://google.com.br";
-                    link.LinkClicked += new LinkLabelLinkClickedEventHandler(this.link_LinkClicked);
-                    LinkLabel.Link data = new LinkLabel.Link();
-                    data.LinkData = "http://google.com.br";
-                    link.Links.Add(data);
-                    link.AutoSize = true;
-                    link.Location = Rich.GetPositionFromCharIndex(Rich.TextLength);
-                    this.Rich.Controls.Add(link);
-
-
-                    Rich.SelectedText = a;
-
+                    richTB.SelectedText = a;
                     PureText.Append(a);
                 }
             }
         }
 
+        private void addLink(string texto)
+        {
+            LinkLabel.Link data = new LinkLabel.Link();
+            data.LinkData = LT_Link.Prop;
+
+            LinkLabel link = new LinkLabel();
+            link.Text = texto;
+            link.Links.Add(data);
+            link.AutoSize = true;
+            link.Location = richTB.GetPositionFromCharIndex(richTB.TextLength);
+            link.LinkClicked += new LinkLabelLinkClickedEventHandler(this.link_LinkClicked);
+            this.richTB.Controls.Add(link);
+        }
+
         private void link_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try
-            {
-                Process.Start(e.Link.LinkData.ToString());
-            }catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            
-        }
-
-        private void ll_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e, LinkLabel llLinkLabel)
-        {
-            UseHyperlink(llLinkLabel);
-        }
-
-        public void UseHyperlink(LinkLabel llLinkLabel)
-        {
-            try
-            {
-                if (llLinkLabel.Links.Count > 0)
-                {
-                    string sLink = llLinkLabel.Links[0].LinkData.ToString();
-                    System.Diagnostics.Process.Start(sLink);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new ArgumentException("Link error!", ex);
-            }
-        }
+        {            
+             Process.Start("explorer", e.Link.LinkData.ToString());            
+        }        
     }
 
 
-    public class Token
+    class Token
     {
-        public List<object> Lst = new List<object>();
-        public string Tag;
-        public bool ParRequired;
-        //public Action<string> AddMethod;
-
+        public List<object> lst = new List<object>();
+        public string tag;
+        public bool parRequired;
+        
         public void AddMethod(string str)
         {
-            if (this.Tag.Contains("FC") || this.Tag.Contains("BC"))
-            {
-                this.Lst.Add(Color.FromName(str));
-            }
-            else if (this.Tag.Equals("B") || this.Tag.Equals("I") || this.Tag.Equals("U"))
-            {
-                this.Lst.Add(true);
-            }
-            else
-            {
-                this.Lst.Add(str);
-            }
+            if (this.tag.Equals("B") || this.tag.Equals("I") || this.tag.Equals("U"))           
+                this.lst.Add(true);            
+            else if (this.tag.Contains("FC") || this.tag.Contains("BC"))            
+                this.lst.Add(Color.FromName(str));            
+            else            
+                this.lst.Add(str);            
         }
 
         public Token(string tag, bool parRequired)
         {
-            Tag = tag;
-            ParRequired = parRequired;
+            this.tag = tag;
+            this.parRequired = parRequired;
         }
 
         public void DelLast()
         {
-            Lst.RemoveAt(Lst.Count - 1);
+            lst.RemoveAt(lst.Count - 1);
         }
 
         public object Prop
         {
             get
             {
-                return Lst.Last();
+                return lst.Last();
             }
         }
+        
     }
 
 
@@ -276,6 +246,12 @@ namespace RichTextBoxHTMLFormat
             Rich.SelectionStart = Rich.TextLength;
         }
 
+        /// <summary>
+        /// Adicionado o texto formatado
+        /// </summary>
+        /// <param name="Rich"></param>
+        /// <param name="Text"></param>
+        /// <param name="AtEnd"></param>
         public static void RichAddFmt(RichTextBox Rich, string Text, bool AtEnd = true)
         {
             if (AtEnd)
@@ -284,6 +260,12 @@ namespace RichTextBoxHTMLFormat
             motor.DoFmt(Text);
         }
 
+        /// <summary>
+        /// Adicionado o texto formatado em uma nova linha
+        /// </summary>
+        /// <param name="Rich"></param>
+        /// <param name="Text"></param>
+        /// <param name="AtEnd"></param>
         public static void RichAddLineFmt(RichTextBox Rich, string Text, bool AtEnd = true)
         {
             RichAddFmt(Rich, Text + Environment.NewLine, AtEnd);

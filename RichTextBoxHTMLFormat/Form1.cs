@@ -55,6 +55,17 @@ namespace RichTextBoxHTMLFormat
         {
            // richTextBox1.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBox1_LinkClicked);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            RichHTMLFormatting.RichAddLineFmt(richTextBox1, "<a:https://yahoo.com.br>" + textBox1.Text + "</a>", true);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            RichHTMLFormatting.RichAddLineFmt(richTextBox1, "<a:https://bing.com.br>" + textBox1.Text + "</a>", true);            
+        }
+
     }
      
 }

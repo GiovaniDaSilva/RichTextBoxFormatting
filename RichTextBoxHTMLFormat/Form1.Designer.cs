@@ -38,6 +38,8 @@
             this.btnfc = new System.Windows.Forms.Button();
             this.btnBC = new System.Windows.Forms.Button();
             this.btnFs = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // richTextBox1
@@ -58,7 +60,7 @@
             // 
             // btnNegrito
             // 
-            this.btnNegrito.Location = new System.Drawing.Point(11, 289);
+            this.btnNegrito.Location = new System.Drawing.Point(12, 263);
             this.btnNegrito.Name = "btnNegrito";
             this.btnNegrito.Size = new System.Drawing.Size(75, 23);
             this.btnNegrito.TabIndex = 2;
@@ -68,7 +70,7 @@
             // 
             // btnItalico
             // 
-            this.btnItalico.Location = new System.Drawing.Point(92, 289);
+            this.btnItalico.Location = new System.Drawing.Point(93, 263);
             this.btnItalico.Name = "btnItalico";
             this.btnItalico.Size = new System.Drawing.Size(75, 23);
             this.btnItalico.TabIndex = 3;
@@ -78,7 +80,7 @@
             // 
             // btnSublinhado
             // 
-            this.btnSublinhado.Location = new System.Drawing.Point(173, 289);
+            this.btnSublinhado.Location = new System.Drawing.Point(174, 263);
             this.btnSublinhado.Name = "btnSublinhado";
             this.btnSublinhado.Size = new System.Drawing.Size(75, 23);
             this.btnSublinhado.TabIndex = 4;
@@ -98,19 +100,19 @@
             // 
             // btnLink
             // 
-            this.btnLink.Location = new System.Drawing.Point(348, 289);
+            this.btnLink.Location = new System.Drawing.Point(332, 309);
             this.btnLink.Name = "btnLink";
-            this.btnLink.Size = new System.Drawing.Size(75, 23);
+            this.btnLink.Size = new System.Drawing.Size(91, 23);
             this.btnLink.TabIndex = 6;
-            this.btnLink.Text = "Link";
+            this.btnLink.Text = "Link 1";
             this.btnLink.UseVisualStyleBackColor = true;
             this.btnLink.Click += new System.EventHandler(this.btnLink_Click);
             // 
             // btnfc
             // 
-            this.btnfc.Location = new System.Drawing.Point(11, 318);
+            this.btnfc.Location = new System.Drawing.Point(12, 309);
             this.btnfc.Name = "btnfc";
-            this.btnfc.Size = new System.Drawing.Size(156, 23);
+            this.btnfc.Size = new System.Drawing.Size(237, 23);
             this.btnfc.TabIndex = 7;
             this.btnfc.Text = "Fonte Color Red";
             this.btnfc.UseVisualStyleBackColor = true;
@@ -118,9 +120,9 @@
             // 
             // btnBC
             // 
-            this.btnBC.Location = new System.Drawing.Point(12, 376);
+            this.btnBC.Location = new System.Drawing.Point(13, 367);
             this.btnBC.Name = "btnBC";
-            this.btnBC.Size = new System.Drawing.Size(155, 23);
+            this.btnBC.Size = new System.Drawing.Size(236, 23);
             this.btnBC.TabIndex = 8;
             this.btnBC.Text = "Backgroud Color Blue";
             this.btnBC.UseVisualStyleBackColor = true;
@@ -128,19 +130,41 @@
             // 
             // btnFs
             // 
-            this.btnFs.Location = new System.Drawing.Point(12, 347);
+            this.btnFs.Location = new System.Drawing.Point(13, 338);
             this.btnFs.Name = "btnFs";
-            this.btnFs.Size = new System.Drawing.Size(155, 23);
+            this.btnFs.Size = new System.Drawing.Size(236, 23);
             this.btnFs.TabIndex = 9;
             this.btnFs.Text = "Fonte Size 20";
             this.btnFs.UseVisualStyleBackColor = true;
             this.btnFs.Click += new System.EventHandler(this.btnFs_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(332, 338);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(91, 23);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "Link 2";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(332, 367);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(91, 23);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "Link 3";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(437, 450);
+            this.ClientSize = new System.Drawing.Size(437, 402);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnFs);
             this.Controls.Add(this.btnBC);
             this.Controls.Add(this.btnfc);
@@ -170,5 +194,7 @@
         private System.Windows.Forms.Button btnfc;
         private System.Windows.Forms.Button btnBC;
         private System.Windows.Forms.Button btnFs;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
