@@ -75,24 +75,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\paytr\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Pichau\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\paytr\\Documents\\Giovani\\Projetos\\RichTextBoxHTMLFormat\\RichTextBoxHTMLFormat\\RichTextBoxHTMLFormat.csproj",
+      "projectUniqueName": "D:\\GIT\\RichTextBoxFormatting\\RichTextBoxHTMLFormat\\RichTextBoxHTMLFormat.csproj",
       "projectName": "RichTextBoxHTMLFormat",
-      "projectPath": "C:\\Users\\paytr\\Documents\\Giovani\\Projetos\\RichTextBoxHTMLFormat\\RichTextBoxHTMLFormat\\RichTextBoxHTMLFormat.csproj",
-      "packagesPath": "C:\\Users\\paytr\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\paytr\\Documents\\Giovani\\Projetos\\RichTextBoxHTMLFormat\\RichTextBoxHTMLFormat\\obj\\",
+      "projectPath": "D:\\GIT\\RichTextBoxFormatting\\RichTextBoxHTMLFormat\\RichTextBoxHTMLFormat.csproj",
+      "packagesPath": "C:\\Users\\Pichau\\.nuget\\packages\\",
+      "outputPath": "D:\\GIT\\RichTextBoxFormatting\\RichTextBoxHTMLFormat\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\paytr\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Pichau\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -140,7 +135,7 @@
           },
           {
             "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[5.0.12, 5.0.12]"
+            "version": "[5.0.13, 5.0.13]"
           },
           {
             "name": "Microsoft.NETCore.App.Ref",
@@ -159,7 +154,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

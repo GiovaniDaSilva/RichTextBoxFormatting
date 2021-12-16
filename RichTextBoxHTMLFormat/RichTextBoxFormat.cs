@@ -2,6 +2,7 @@
 using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -128,8 +129,10 @@ namespace RichTextBoxHTMLFormat
                                                            Conversions.ToBoolean(LT_Italic.Prop), 
                                                            Conversions.ToBoolean(LT_Underline.Prop)));
             Rich.SelectionColor = (Color)LT_Color.Prop;
-            Rich.SelectionBackColor = (Color)LT_Backgound.Prop;
+            Rich.SelectionBackColor = (Color)LT_Backgound.Prop;          
         }
+
+  
 
         public void DoFmt(string Text)
         {
@@ -165,9 +168,58 @@ namespace RichTextBoxHTMLFormat
                     Text = Text.Remove(0, x - 1);
                     a = a.Replace("&lt;", "<");
                     a = a.Replace("&gt;", ">");
+                    
+
+
+
+                    LinkLabel link = new LinkLabel();
+                    link.Text = "http://google.com.br";
+                    link.LinkClicked += new LinkLabelLinkClickedEventHandler(this.link_LinkClicked);
+                    LinkLabel.Link data = new LinkLabel.Link();
+                    data.LinkData = "http://google.com.br";
+                    link.Links.Add(data);
+                    link.AutoSize = true;
+                    link.Location = Rich.GetPositionFromCharIndex(Rich.TextLength);
+                    this.Rich.Controls.Add(link);
+
+
                     Rich.SelectedText = a;
+
                     PureText.Append(a);
                 }
+            }
+        }
+
+        private void link_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                Process.Start(e.Link.LinkData.ToString());
+            }catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+
+        private void ll_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e, LinkLabel llLinkLabel)
+        {
+            UseHyperlink(llLinkLabel);
+        }
+
+        public void UseHyperlink(LinkLabel llLinkLabel)
+        {
+            try
+            {
+                if (llLinkLabel.Links.Count > 0)
+                {
+                    string sLink = llLinkLabel.Links[0].LinkData.ToString();
+                    System.Diagnostics.Process.Start(sLink);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("Link error!", ex);
             }
         }
     }

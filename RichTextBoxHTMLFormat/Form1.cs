@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace RichTextBoxHTMLFormat
@@ -29,5 +30,31 @@ namespace RichTextBoxHTMLFormat
         {
             RichHTMLFormatting.RichAddLineFmt(richTextBox1, textBox1.Text , true);
         }
+
+        private void btnLink_Click(object sender, EventArgs e)
+        {            
+            RichHTMLFormatting.RichAddLineFmt(richTextBox1, "<a:https://google.com.br>" + textBox1.Text + "</a>", true);
+        }
+
+        private void btnBC_Click(object sender, EventArgs e)
+        {
+            RichHTMLFormatting.RichAddLineFmt(richTextBox1, "<bc:blue>" + textBox1.Text + "</bc>", true);
+        }
+
+        private void btnFs_Click(object sender, EventArgs e)
+        {
+            RichHTMLFormatting.RichAddLineFmt(richTextBox1, "<fs:20>" + textBox1.Text + "</fs>", true);
+        }
+
+        private void btnfc_Click(object sender, EventArgs e)
+        {
+            RichHTMLFormatting.RichAddLineFmt(richTextBox1, "<fc:red>" + textBox1.Text + "</fc>", true);
+        }
+
+        private void richTextBox1_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+           // richTextBox1.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBox1_LinkClicked);
+        }
     }
+     
 }
