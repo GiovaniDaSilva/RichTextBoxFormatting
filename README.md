@@ -1,6 +1,6 @@
 # RichTextBoxFormatting
 
-Aplicação demostrando como aplicar formatação de texto no componente RichTextBox através de tags html.
+Aplicação demonstrando como aplicar formatação de texto no componente RichTextBox através de tags html.
 
 O motor de conversão foi desenvolvido por <a href="https://github.com/digao-dalpiaz">Rodrigo Dalpiaz</a> em vb.net e convertida por mim para C#.
 
